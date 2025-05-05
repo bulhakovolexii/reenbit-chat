@@ -15,6 +15,10 @@ const chatSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    avatarUrl: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true }
 );

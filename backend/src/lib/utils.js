@@ -14,3 +14,6 @@ export const generateToken = (userId, res) => {
 
   return token;
 };
+
+const avatars = ["einstein.png", "curie.png", "tesla.png"];
+export const randomAvatar = avatars[Math.floor(Math.random() * avatars.length)];

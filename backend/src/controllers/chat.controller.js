@@ -1,3 +1,4 @@
+import { randomAvatar } from "../lib/utils.js";
 import Chat from "../models/chat.model.js";
 import Message from "../models/message.model.js";
 
@@ -32,6 +33,7 @@ export const createChat = async (req, res) => {
       firstName,
       lastName,
       userId: req.user._id,
+      avatarUrl: `/avatars/${randomAvatar}`, // path to img in `/public` folder on fe
     });
 
     res.status(200).json(chat);

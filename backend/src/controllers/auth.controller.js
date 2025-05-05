@@ -1,4 +1,4 @@
-import { generateToken } from "../lib/utils.js";
+import { generateToken, randomAvatar } from "../lib/utils.js";
 import Chat from "../models/chat.model.js";
 import Message from "../models/message.model.js";
 import User from "../models/user.model.js";
@@ -56,6 +56,7 @@ export const signup = async (req, res) => {
           firstName: person.firstName,
           lastName: person.lastName,
           userId: newUser._id,
+          avatarUrl: `/avatars/${randomAvatar}`, // path to img in `/public` folder on fe
         });
 
         await Message.create({
