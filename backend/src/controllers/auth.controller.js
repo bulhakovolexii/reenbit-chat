@@ -1,9 +1,12 @@
 import { generateToken } from "../lib/utils.js";
+import Chat from "../models/chat.model.js";
+import Message from "../models/message.model.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 
 export const signup = async (req, res) => {
   const { email, password, firstName, lastName } = req.body;
+
   try {
     const user = await User.findOne({ email });
 
@@ -40,6 +43,28 @@ export const signup = async (req, res) => {
         lastName: newUser.lastName,
         email: newUser.email,
       });
+
+      // Create 3 predefined chats
+      const defaultChats = [
+        { firstName: "Albert", lastName: "Einstein" },
+        { firstName: "Marie", lastName: "Curie" },
+        { firstName: "Nikola", lastName: "Tesla" },
+      ];
+
+      for (const person of defaultChats) {
+        const chat = await Chat.create({
+          firstName: person.firstName,
+          lastName: person.lastName,
+          userId: newUser._id,
+        });
+
+        await Message.create({
+          chatId: chat._id,
+          userId: newUser._id,
+          isBot: true,
+          text: `Hi, I'm ${person.firstName}. Let’s talk.`,
+        });
+      }
     } else {
       res.status(400).json({ message: "Invalid user data" });
     }
