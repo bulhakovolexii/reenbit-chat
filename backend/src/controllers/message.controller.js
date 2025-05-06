@@ -8,9 +8,6 @@ export const getMessages = async (req, res) => {
 
     const messages = await Message.find({ chatId }).sort({ createdAt: 1 });
 
-    if (messages.length < 1)
-      return res.status(400).json({ messages: "Chat is empty" });
-
     res.status(200).json(messages);
   } catch (error) {
     console.log("Error in getMessages controller", error.message);
@@ -34,6 +31,8 @@ export const sendMessage = async (req, res) => {
       text,
     });
 
+    req.wsServer.broadcast(chatId, message);
+
     res.status(201).json(message);
 
     setTimeout(async () => {
@@ -41,12 +40,14 @@ export const sendMessage = async (req, res) => {
         const resp = await fetch("http://api.quotable.io/random");
         const data = await resp.json();
 
-        await Message.create({
+        const botMessage = await Message.create({
           chatId,
           userId: req.user._id,
           isBot: true,
           text: data.content,
         });
+
+        req.wsServer.broadcast(chatId, botMessage);
       } catch (error) {
         console.error("Error fetching quote:", error.message);
       }

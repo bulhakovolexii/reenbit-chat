@@ -8,6 +8,7 @@ export const authApi = api.injectEndpoints({
         method: "POST",
         body: credentials,
       }),
+      invalidatesTags: ["Auth"],
     }),
     login: builder.mutation({
       query: (credentials) => ({
@@ -15,12 +16,15 @@ export const authApi = api.injectEndpoints({
         method: "POST",
         body: credentials,
       }),
+      invalidatesTags: ["Auth"],
     }),
     logout: builder.mutation({
       query: () => ({ url: "auth/logout", method: "POST" }),
+      invalidatesTags: ["Auth"],
     }),
     checkAuth: builder.query({
       query: () => "/auth/check",
+      providesTags: ["Auth"],
     }),
   }),
 });

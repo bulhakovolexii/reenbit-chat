@@ -10,10 +10,6 @@ export const getAllChats = async (req, res) => {
       updatedAt: -1,
     });
 
-    if (filteredChats.length < 1) {
-      return res.status(404).json({ message: "Chats not found" });
-    }
-
     res.status(200).json(filteredChats);
   } catch (error) {
     console.log("Error in getAllChats controller", error.message);
