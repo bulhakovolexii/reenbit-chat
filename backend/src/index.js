@@ -3,9 +3,9 @@ import { createServer } from "http";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import { setupWebSocket } from "./lib/websocket.js";
 
 import connectDB from "./lib/db.js";
+import setupWebSocket from "./lib/websocket.js";
 import authRoutes from "./routes/auth.route.js";
 import chatRoutes from "./routes/chat.route.js";
 import messageRoutes from "./routes/message.route.js";
@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: `http://localhost:${process.env.FE_PORT}`,
     credentials: true,
   })
 );

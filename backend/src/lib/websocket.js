@@ -2,7 +2,7 @@ import { WebSocketServer } from "ws";
 import jwt from "jsonwebtoken";
 import { parse } from "cookie";
 
-export function setupWebSocket(server) {
+export default function setupWebSocket(server) {
   const wss = new WebSocketServer({ server });
 
   const clients = new Map();
