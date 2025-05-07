@@ -31,8 +31,6 @@ export const sendMessage = async (req, res) => {
       text,
     });
 
-    req.wsServer.broadcast(chatId, message);
-
     res.status(201).json(message);
 
     setTimeout(async () => {
