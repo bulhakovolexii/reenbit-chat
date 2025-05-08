@@ -1,0 +1,28 @@
+.header {
+  background-color: var(--bg-gray-100);
+  border-bottom: 2px solid var(--border-color);
+  padding: var(--spacing-3);
+}
+
+.userWrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.logoutButton {
+  margin-left: auto;
+}
+
+.userName {
+  font-size: 1rem;
+  font-weight: 400;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.searchInput {
+  margin-top: var(--spacing-4);
+  display: block;
+  width: 100%;
+}

@@ -1,0 +1,10 @@
+.sidebar {
+  flex-grow: 1;
+  max-width: var(--sidebar-width);
+  border-right: 2px solid var(--border-color);
+}
+
+.heading {
+  padding-left: var(--spacing-3);
+  padding-right: var(--spacing-3);
+}

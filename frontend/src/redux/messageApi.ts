@@ -60,6 +60,12 @@ export const messageApi = api.injectEndpoints({
       },
       providesTags: ["Messages"],
     }),
+    getLastMessage: builder.query<LastMessage, string>({
+      query: (chatId) => `/messages/${chatId}/last`,
+      providesTags: (result, error, chatId) => [
+        { type: "Messages", id: chatId },
+      ],
+    }),
     sendMessage: builder.mutation<Message, SendMessageRequest>({
       query: ({ chatId, text }) => ({
         url: `/messages/${chatId}`,
@@ -88,6 +94,7 @@ export const messageApi = api.injectEndpoints({
 
 export const {
   useGetMessagesQuery,
+  useGetLastMessageQuery,
   useSendMessageMutation,
   useUpdateMessageMutation,
   useDeleteMessageMutation,

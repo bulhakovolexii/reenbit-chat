@@ -1,0 +1,6 @@
+.avatar {
+  width: var(--spacing-8);
+  border-radius: 50%;
+  background-color: red;
+  display: block;
+}

@@ -1,31 +1,24 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useGetChatsQuery, useDeleteChatMutation } from "../redux";
+import { useGetChatsQuery } from "../redux";
+import classes from "./ChatSidebar.module.css";
+import ChatThumb from "./ChatThumb";
+import SidebarHeader from "./SitebarHeader";
 
 export default function ChatSidebar() {
   const { data: chats = [] } = useGetChatsQuery();
-  const navigate = useNavigate();
-
-  const [deleteChat] = useDeleteChatMutation();
-
-  const handleDelete = async (chatId) => {
-    try {
-      await deleteChat(chatId);
-      navigate("/");
-    } catch (error) {
-      console.error("Failed to delete chat:", error);
-    }
-  };
 
   return (
-    <div>
+    <aside className={classes.sidebar}>
+      <SidebarHeader />
+      <h3 className={classes.heading}>Chats</h3>
       {chats.map((chat) => (
-        <div key={chat._id}>
-          <Link to={`/${chat._id}`} key={chat._id}>
-            {chat.firstName} {chat.lastName}
-          </Link>
-          <button onClick={() => handleDelete(chat._id)}>delete</button>
-        </div>
+        <ChatThumb
+          img={chat.avatarUrl}
+          firstName={chat.firstName}
+          lastName={chat.lastName}
+          key={chat._id}
+          id={chat._id}
+        />
       ))}
-    </div>
+    </aside>
   );
 }

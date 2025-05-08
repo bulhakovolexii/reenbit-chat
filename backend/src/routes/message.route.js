@@ -1,6 +1,7 @@
 import express from "express";
 import {
   deleteMessage,
+  getLastMessage,
   getMessages,
   sendMessage,
   updateMessage,
@@ -12,6 +13,8 @@ const router = express.Router();
 router.use(protectedRoute);
 
 router.get("/:chatId", getMessages);
+
+router.get("/:chatId/last", getLastMessage);
 
 router.post("/:chatId", sendMessage);
 

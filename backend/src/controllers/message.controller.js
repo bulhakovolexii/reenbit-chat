@@ -15,6 +15,23 @@ export const getMessages = async (req, res) => {
   }
 };
 
+export const getLastMessage = async (req, res) => {
+  try {
+    const chatId = req.params.chatId;
+
+    if (!chatId) return res.status(400).json({ message: "chatId is required" });
+
+    const message = await Message.findOne({ chatId })
+      .sort({ createdAt: -1 })
+      .limit(1);
+
+    res.status(200).json(message);
+  } catch (error) {
+    console.log("Error in getLastMessage controller", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 export const sendMessage = async (req, res) => {
   try {
     const chatId = req.params.chatId;
