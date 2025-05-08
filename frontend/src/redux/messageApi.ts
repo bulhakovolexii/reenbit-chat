@@ -1,13 +1,28 @@
 import { api } from "./api";
+import type { Message } from "../types/types";
 
-let ws = null;
-let wsPromise = null;
+interface SendMessageRequest {
+  chatId: string;
+  text: string;
+}
+
+interface UpdateMessageRequest extends SendMessageRequest {
+  messageId: string;
+}
+
+interface DeleteMessageRequest {
+  chatId: string;
+  messageId: string;
+}
+
+let ws: WebSocket | null = null;
+let wsPromise: Promise<WebSocket> | null = null;
 
 const getWsConnection = () => {
   if (!wsPromise) {
     wsPromise = new Promise((resolve, reject) => {
       ws = new WebSocket("ws://localhost:5001/ws");
-      ws.addEventListener("open", () => resolve(ws));
+      ws.addEventListener("open", () => resolve(ws!));
       ws.addEventListener("error", reject);
     });
   }
@@ -16,7 +31,7 @@ const getWsConnection = () => {
 
 export const messageApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getMessages: builder.query({
+    getMessages: builder.query<Message[], string>({
       query: (chatId) => `/messages/${chatId}`,
       async onCacheEntryAdded(
         chatId,
@@ -26,7 +41,7 @@ export const messageApi = api.injectEndpoints({
           await cacheDataLoaded;
           const socket = await getWsConnection();
 
-          const handleMessage = (event) => {
+          const handleMessage = (event: MessageEvent) => {
             const data = JSON.parse(event.data);
             if (data.chatId === chatId) {
               updateCachedData((draft) => {
@@ -45,7 +60,7 @@ export const messageApi = api.injectEndpoints({
       },
       providesTags: ["Messages"],
     }),
-    sendMessage: builder.mutation({
+    sendMessage: builder.mutation<Message, SendMessageRequest>({
       query: ({ chatId, text }) => ({
         url: `/messages/${chatId}`,
         method: "POST",
@@ -53,7 +68,7 @@ export const messageApi = api.injectEndpoints({
       }),
       invalidatesTags: ["Messages"],
     }),
-    updateMessage: builder.mutation({
+    updateMessage: builder.mutation<Message, UpdateMessageRequest>({
       query: ({ chatId, messageId, text }) => ({
         url: `/messages/${chatId}/${messageId}`,
         method: "PUT",
@@ -61,7 +76,7 @@ export const messageApi = api.injectEndpoints({
       }),
       invalidatesTags: ["Messages"],
     }),
-    deleteMessage: builder.mutation({
+    deleteMessage: builder.mutation<{ message: string }, DeleteMessageRequest>({
       query: ({ chatId, messageId }) => ({
         url: `/messages/${chatId}/${messageId}`,
         method: "DELETE",

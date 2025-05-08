@@ -5,5 +5,6 @@ export const api = createApi({
     baseUrl: "http://localhost:5001/api",
     credentials: "include",
   }),
+  tagTypes: ["Auth", "Chats", "Messages"],
   endpoints: () => ({}),
 });

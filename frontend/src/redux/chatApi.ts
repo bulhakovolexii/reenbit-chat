@@ -1,12 +1,13 @@
 import { api } from "./api";
+import type { Chat } from "../types/types";
 
-const chatApi = api.injectEndpoints({
+export const chatApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getChats: builder.query({
+    getChats: builder.query<Chat[], void>({
       query: () => "/chats",
       providesTags: ["Chats"],
     }),
-    deleteChat: builder.mutation({
+    deleteChat: builder.mutation<{ message: string }, string>({
       query: (chatId) => ({
         url: `/chats/${chatId}`,
         method: "DELETE",
