@@ -231,6 +231,10 @@ Retrieve all messages for a specific chat.
 ]
 ```
 
+### Get Last Message
+
+// TODO
+
 ### Send Message
 
 ```http
