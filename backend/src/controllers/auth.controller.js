@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { generateToken, randomAvatar } from "../lib/utils.js";
 import Chat from "../models/chat.model.js";
 import Message from "../models/message.model.js";
