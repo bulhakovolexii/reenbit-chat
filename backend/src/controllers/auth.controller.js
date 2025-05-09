@@ -126,7 +126,7 @@ export const checkAuth = (req, res) => {
     };
 
     res.status(200).json({
-      user: req.user,
+      user: req.user || null,
       dbConnection: dbStatusMessage[dbStatus] || "Unknown",
     });
   } catch (error) {
