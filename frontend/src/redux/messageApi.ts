@@ -1,5 +1,5 @@
 import { api } from "./api";
-import type { Message } from "../types/types";
+import type { LastMessage, Message } from "../types/types";
 
 interface SendMessageRequest {
   chatId: string;
@@ -62,7 +62,7 @@ export const messageApi = api.injectEndpoints({
     }),
     getLastMessage: builder.query<LastMessage, string>({
       query: (chatId) => `/messages/${chatId}/last`,
-      providesTags: (result, error, chatId) => [
+      providesTags: (_result, _error, chatId) => [
         { type: "Messages", id: chatId },
       ],
     }),

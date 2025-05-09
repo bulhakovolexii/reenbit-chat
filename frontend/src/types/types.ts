@@ -34,3 +34,8 @@ export interface SignupCredentials extends LoginCredentials {
   firstName: string;
   lastName: string;
 }
+
+export interface LastMessage {
+  text: string;
+  createdAt: string;
+}

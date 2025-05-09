@@ -16,7 +16,8 @@ export default function ChatThumb({
   lastName,
   img,
 }: ChatThumbProps) {
-  const { data: lastMessage, isLoading } = useGetLastMessageQuery(id);
+  const { data: lastMessage = { createdAt: "", text: "" }, isLoading } =
+    useGetLastMessageQuery(id);
   const { chatId } = useParams();
 
   const getFormattedDate = (isoDate: string): string => {

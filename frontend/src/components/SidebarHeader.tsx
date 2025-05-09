@@ -1,11 +1,20 @@
+import { ChangeEvent } from "react";
 import { useCheckAuthQuery, useLogoutMutation } from "../redux";
 import Avatar from "./Avatar";
 import Button from "./Button";
 import classes from "./SidebarHeader.module.css";
+import Input from "./Input";
 
-export default function SidebarHeader() {
+interface SidebarHeaderProps {
+  onSearch: (query: string) => void;
+}
+
+export default function SidebarHeader({ onSearch }: SidebarHeaderProps) {
   const { data: user } = useCheckAuthQuery();
   const [logout] = useLogoutMutation();
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    onSearch(e.target.value);
+  };
 
   return (
     <header className={classes.header}>
@@ -18,8 +27,12 @@ export default function SidebarHeader() {
           Log Out
         </Button>
       </div>
-      {/* Пошук по чатам */}
-      <input type="text" className={classes.searchInput} />
+      <Input
+        type="text"
+        placeholder="Search chats..."
+        className={classes.searchInput}
+        onChange={handleSearch}
+      />
     </header>
   );
 }

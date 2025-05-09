@@ -1,2 +1,13 @@
 .btn {
+  background-color: #fff;
+  border: 2px solid var(--border-color);
+  border-radius: var(--spacing-3);
+  padding: var(--spacing-1) var(--spacing-3);
+  color: var(--text-blue);
+  font-weight: 600;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: var(--bg-gray-100);
 }
