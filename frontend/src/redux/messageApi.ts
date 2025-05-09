@@ -21,7 +21,7 @@ let wsPromise: Promise<WebSocket> | null = null;
 const getWsConnection = () => {
   if (!wsPromise) {
     wsPromise = new Promise((resolve, reject) => {
-      ws = new WebSocket("ws://localhost:5001/ws");
+      ws = new WebSocket(`${import.meta.env.VITE_BACKEND_BASEURL_WS}/ws`);
       ws.addEventListener("open", () => resolve(ws!));
       ws.addEventListener("error", reject);
     });
