@@ -7,12 +7,7 @@ const connectDB = async () => {
 
   const MONGODB_URI = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.bovuhvd.mongodb.net/${DB_NAME}?retryWrites=true&w=majority&appName=Cluster0`;
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    });
+    const conn = await mongoose.connect(process.env.MONGODB_URI);
     console.log(`MongoDB connected: ${conn.connection.host}`);
   } catch (error) {
     console.log(`MongoDB connection error: ${error}`);
