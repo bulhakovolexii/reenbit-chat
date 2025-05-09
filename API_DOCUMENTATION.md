@@ -233,7 +233,25 @@ Retrieve all messages for a specific chat.
 
 ### Get Last Message
 
-// TODO
+```http
+GET /messages/:chatId/last
+```
+
+Retrieve last message for a specific chat.
+
+**Response:** `200 OK`
+
+```json
+  {
+    "_id": "string",
+    "chatId": "string",
+    "userId": "string",
+    "text": "string",
+    "isBot": "boolean",
+    "createdAt": "string",
+    "updatedAt": "string"
+  }
+```
 
 ### Send Message
 
