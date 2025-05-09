@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
-import { useGetMessagesQuery, useSendMessageMutation } from "../redux";
+import { useGetMessagesQuery } from "../redux";
 import classes from "./ChatPage.module.css";
-import { FormEvent, useState } from "react";
 import ChatForm from "../components/ChatForm";
 
 export default function ChatPage() {
