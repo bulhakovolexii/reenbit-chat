@@ -116,7 +116,18 @@ export const logout = (req, res) => {
 
 export const checkAuth = (req, res) => {
   try {
-    res.status(200).json(req.user);
+    const dbStatus = mongoose.connection.readyState;
+    const dbStatusMessage = {
+      0: "Disconnected",
+      1: "Connected",
+      2: "Connecting",
+      3: "Disconnecting",
+    };
+
+    res.status(200).json({
+      user: req.user,
+      dbConnection: dbStatusMessage[dbStatus] || "Unknown",
+    });
   } catch (error) {
     console.log("Error in checkAuth controller", error.message);
     res.status(500).json({ message: "Internal Server Error" });
