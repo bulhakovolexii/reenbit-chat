@@ -39,3 +39,15 @@ export interface LastMessage {
   text: string;
   createdAt: string;
 }
+
+export interface SignupCredentials {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+}
+
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}

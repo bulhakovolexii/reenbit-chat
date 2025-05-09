@@ -6,13 +6,7 @@ import SignupPage from "./pages/SignupPage";
 import ChatLayout from "./layouts/ChatLayout";
 import ChatPage from "./pages/ChatPage";
 
-// import { useLoginMutation } from "./redux";
-
 function App() {
-  // const [login] = useLoginMutation();
-
-  // login({ email: "test@test.com", password: "123456" });
-
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
